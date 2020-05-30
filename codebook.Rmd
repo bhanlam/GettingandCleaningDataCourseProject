@@ -11,9 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Difference with original dataset
 
-The dataset to be analysed is downloaded from:
-
-<https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip>  
+The dataset to be analysed is downloaded from: 
+<https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip>
 \  
 
 The companion site for the dataset can be accessed from:
@@ -28,18 +27,18 @@ Although there are no major changes to the variable names, the Table 1 below wil
 require(pander)
 panderOptions('table.split.table', Inf)
 set.caption("Summary of variable abbrevations")
-my.data <- " Original | Modified | Meaning
-  *NA*          | ID        | Participant/Subject ID from subject_test.txt or subject_train.txt
-  *NA*          | Activity  | Activity labels from activity_labels.txt
-  f             | *NA*      | Frequency Domain           
-  t             | *NA*      | Time Domain, 50Hz
-  -XYZ          | XYZ       | Denotes 3-axial signals in X, Y, or Z directions
-  Acc           | *NA*      | Accelerometer readings
-  Gyro          | *NA*      | Gyroscope readings
+my.data <- " Original | Modified | Meaning | Units (if any)
+  *NA*          | ID        | Participant/Subject ID from subject_test.txt or subject_train.txt |
+  *NA*          | Activity  | Activity labels from activity_labels.txt |
+  f             | *NA*      | Frequency Domain |                                                 
+  t             | *NA*      | Time Domain, 50Hz |
+  -XYZ          | XYZ       | Denotes 3-axial signals in X, Y, or Z directions | 
+  Acc           | *NA*      | Triaxial acceleration Accelerometer readings | g
+  Gyro          | *NA*      | Triaxial Angular velocity from the gyroscope | radians/s
   Body          | *NA*      | Denotes Acc or Gyro readings by the Body
   Gravity       | *NA*      | Denotes Acc or Gyro readings due to Gravity
-  Jerk          | *NA*      | Denotes the derived Jerk signal 
-  Mag           | *NA*      | Denotes the magnitude
+  Jerk          | *NA*      | Denotes the body linear acceleration and angular velocity derived in time to obtain Jerk signals
+  Mag           | *NA*      | Denotes the magnitude of these three-dimensional signals calculated using the Euclidean norm
   mean()        | Mean      | Indicates a mean calculation
   std()         | Std       | Indicates a standard deviation calculation"
 df <- read.delim(textConnection(my.data),header=FALSE,sep="|",strip.white=TRUE,stringsAsFactors=FALSE)
