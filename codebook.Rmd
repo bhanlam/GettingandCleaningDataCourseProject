@@ -1,0 +1,46 @@
+---
+title: "Code Book for Getting and Cleaning Data Course Project"
+author: "lactobacillusnut"
+date: "30/05/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Difference with original dataset
+
+The dataset to be analysed is downloaded from:
+
+<https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip>  
+\  
+
+The companion site for the dataset can be accessed from:
+
+<http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones>
+\  
+
+Although there are no major changes to the variable names, the Table 1 below will summarise the abbreviations used in the variable names in the final output file *"avgbyparticipant.csv"*. An indication of *NA* signifies no changes to the orginal abbreviations.
+
+
+```{r table-simple, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+require(pander)
+panderOptions('table.split.table', Inf)
+set.caption("Summary of variable abbrevations")
+my.data <- " Original | Modified | Meaning
+  f             | *NA*      | Frequency Domain           
+  t             | *NA*      | Time Domain, 50Hz
+  -XYZ          | XYZ       | Denotes 3-axial signals in X, Y, or Z directions
+  Acc           | *NA*      | Accelerometer readings
+  Gyro          | *NA*      | Gyroscope readings
+  Body          | *NA*      | Denotes Acc or Gyro readings by the Body
+  Gravity       | *NA*      | Denotes Acc or Gyro readings due to Gravity
+  mean()        | Mean      | Indicates a mean calculation
+  std()         | Std       | Indicates a standard deviation calculation"
+df <- read.delim(textConnection(my.data),header=FALSE,sep="|",strip.white=TRUE,stringsAsFactors=FALSE)
+names(df) <- unname(as.list(df[1,])) # put headers on
+df <- df[-1,] # remove first row
+row.names(df)<-NULL
+pander(df, style = 'rmarkdown')
+```
