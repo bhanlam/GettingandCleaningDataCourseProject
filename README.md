@@ -10,7 +10,7 @@ This repo is created as part of the course project for the Getting and Clearning
 ## Analysis R Script
 **run_analysis.R**: This file achieves the following:
 
-1. Checks if the folder "*UCI HAR Dataset*" containing the dataset is present in the working directory.
+1. Downloads zip file and unzips it in working directory if either not available or not unzipped.
 2. Reads and combines the subject IDs in *subject_test.txt* with the measurement data in the test set *X_test.txt*
 3. Repeats #2 for subject IDs and measurement data in the training set, i.e. *subject_train.txt* & *X_train.txt*
 4. Merge the datasets from #2 and #3
