@@ -22,4 +22,4 @@ This repo is created as part of the course project for the Getting and Clearning
     - Hyphens removed, i.e. *"-"*
 7. The variables in #4 are renamed with the renamed features in #6
 8. The dataset from #7 is summarised by participant to yield the mean values of each variable
-9. The dataset from #8 is exported to a csv file, i.e. *"avgbyparticipant.csv"*
+9. The dataset from #8 is exported to a txt file, i.e. *"avgbyparticipant.txt"*

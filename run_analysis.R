@@ -69,8 +69,7 @@ if(!dir.exists("UCI HAR Dataset")){
         summarise_all("mean")
     
     # store as new dataset "avgbyparticipant.csv"
-    write.csv(avgbyparticiapnt,"avgbyparticipant.csv",row.names=FALSE)
-    
+    write.table(avgbyparticiapnt,"avgbyparticipant.txt",row.name=FALSE) 
     print("Exported successfully as avgbyparticipant.csv")
 }
 

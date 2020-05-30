@@ -21,7 +21,7 @@ The companion site for the dataset can be accessed from:
 <http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones>
 \  
 
-Although there are no major changes to the variable names, the Table 1 below will summarise the abbreviations used in the variable names in the final output file *"avgbyparticipant.csv"*. An indication of *NA* signifies no changes to the orginal abbreviations.
+Although there are no major changes to the variable names, the Table 1 below will summarise the abbreviations used in the variable names in the final output file *"avgbyparticipant.txt"*. An indication of *NA* signifies no changes to the orginal abbreviations.
 
 
 ```{r table-simple, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
