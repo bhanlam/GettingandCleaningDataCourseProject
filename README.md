@@ -1,7 +1,4 @@
----
-title: "README"
-output: html_document
----
+## README
 
 This repo is created as part of the course project for the Getting and Clearning Data Coursera course. It contains the following files:
 
