@@ -19,27 +19,40 @@ if(!dir.exists("UCI HAR Dataset")){
     
     ## 1.Merges the training and the test sets to create one data set.
     
-    # Extract featurenames
-    feature <- tbl_df(read.table("UCI HAR Dataset/features.txt"))
+    ## Test dataset
     
-    # test dataset
+    #extract subject ID
     subjtest <- tbl_df(read.table("UCI HAR Dataset/test/subject_test.txt")) %>%
         rename(ID=V1)
-    testset <- tbl_df(read.table("UCI HAR Dataset/test/X_test.txt"))
-    labeledtest <- cbind(subjtest,testset)
     
-    # training dataset
+    #extract activity IDs
+    actIDtest <- tbl_df(read.table("UCI HAR Dataset/test/y_test.txt")) %>%
+        rename(Activity=V1)
+    
+    #extract measurements
+    testset <- tbl_df(read.table("UCI HAR Dataset/test/X_test.txt"))
+    
+    labeledtest <- tbl_df(cbind(subjtest,actIDtest,testset))
+    
+    ## Training dataset
+    
+    #extract subject ID
     subjtrain <- tbl_df(read.table("UCI HAR Dataset/train/subject_train.txt")) %>%
         rename(ID=V1)
+    
+    #extract activity IDs
+    actIDtrain <- tbl_df(read.table("UCI HAR Dataset/train/y_train.txt")) %>%
+        rename(Activity=V1)
+    
     trainset <- tbl_df(read.table("UCI HAR Dataset/train/X_train.txt"))
-    labeledtrain <- cbind(subjtrain,trainset)
+    
+    labeledtrain <- cbind(subjtrain,actIDtrain,trainset)
     
     # merge datasets; training and test sets have unique IDs so rbind is sufficient
     if(is.na(match(subjtest,subjtrain))) mergedset <- tbl_df(rbind(labeledtest,labeledtrain))
     if(length(unique(mergedset$ID))==30) print("Merged Sucessfully!")
     
     ## 2. Extracts only the measurements on the mean and standard deviation for each measurement.
-    ## 3. Uses descriptive activity names to name the activities in the data set
     
     # Extract indices with "mean" and "std" in features.txt
     feature <- tbl_df(read.table("UCI HAR Dataset/features.txt"))
@@ -55,22 +68,40 @@ if(!dir.exists("UCI HAR Dataset")){
         str_replace_all("mean", "Mean") %>%
         str_replace_all("std", "Std")
     
+    ## 3. Uses descriptive activity names to name the activities in the data set
+    
+    # Extact activity labels
+    activitylbl <- tbl_df(read.table("UCI HAR Dataset/activity_labels.txt"))
+    
+    # Recode the activity labels
+    newdata <- recode(mergedset$Activity,
+                      '1' = activitylbl$V2[1],
+                      '2' = activitylbl$V2[2],
+                      '3' = activitylbl$V2[3],
+                      '4' = activitylbl$V2[4],
+                      '5' = activitylbl$V2[5],
+                      '6' = activitylbl$V2[6])
+    
+    # Update activity labels
+    mergedset <- mergedset %>%
+        mutate(Activity=newdata)
+    
     ## 4. Appropriately labels the data set with descriptive variable names.
     
     # Extract relevant variables and rename the variables in the merged set
-    renamedset <- select(mergedset,c(1,grep('Mean|Std',goodnames)+1)) %>%
-        rename_at(2:80,funs(c(goodnames)))
+    renamedset <- select(mergedset,c(1:2,grep('Mean|Std',goodnames)+2)) %>%
+        rename_at(3:81,funs(c(goodnames)))
     
     ## 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
     
     # Mean of all columns, grouped by participant ID
     avgbyparticiapnt <- renamedset %>%
-        group_by(ID) %>%
+        group_by(ID,Activity) %>%
         summarise_all("mean")
     
     # store as new dataset "avgbyparticipant.csv"
     write.table(avgbyparticiapnt,"avgbyparticipant.txt",row.name=FALSE) 
-    print("Exported successfully as avgbyparticipant.csv")
+    print("Exported successfully as avgbyparticipant.txt")
 }
 
 
