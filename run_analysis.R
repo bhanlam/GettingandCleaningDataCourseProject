@@ -70,7 +70,8 @@ if(!dir.exists("UCI HAR Dataset")){
     
     # store as new dataset "avgbyparticipant.csv"
     write.csv(avgbyparticiapnt,"avgbyparticipant.csv",row.names=FALSE)
-
+    
+    print("Exported successfully as avgbyparticipant.csv")
 }
 
 
