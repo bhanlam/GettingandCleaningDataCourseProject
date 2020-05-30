@@ -4,8 +4,8 @@ This repo is created as part of the course project for the Getting and Clearning
 
 - "UCI HAR Dataset" folder:  [Source](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) | [Companion Site](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
 - run_analysis.R script, which processes the test and training datasets from the UCI HAR Dataset folder to create a tidied dataset
-- codeBook.Rmd, which describes the changes from the original dataset
-- avgbyparticipant.csv, which is the ouput of run_analysis.R
+- codebook.pdf, which describes the changes from the original dataset
+- avgbyparticipant.txt, which is the ouput of run_analysis.R
 
 ## Analysis R Script
 **run_analysis.R**: This file achieves the following:
