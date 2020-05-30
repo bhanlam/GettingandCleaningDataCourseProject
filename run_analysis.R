@@ -4,11 +4,20 @@
 ## 3. Uses descriptive activity names to name the activities in the data set
 ## 4. Appropriately labels the data set with descriptive variable names.
 ## 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+## This script assumes the UCI HAR Dataset is unzipped into the "UCI HAR Dataset" folder in the working directory
 
-#load libraries
+# Check if dataset is available
+
+
+# load libraries
 library(dplyr)
+library(tidyr)
+library(stringr)
 
 ## 1.Merges the training and the test sets to create one data set.
+
+# Extract featurenames
+feature <- tbl_df(read.table("UCI HAR Dataset/features.txt"))
 
 # test dataset
 subjtest <- tbl_df(read.table("UCI HAR Dataset/test/subject_test.txt")) %>%
@@ -27,6 +36,31 @@ if(is.na(match(subjtest,subjtrain))) mergedset <- tbl_df(rbind(labeledtest,label
 if(length(unique(mergedset$ID))==30) print("Merged Sucessfully!")
 
 ## 2. Extracts only the measurements on the mean and standard deviation for each measurement.
+## 3. Uses descriptive activity names to name the activities in the data set
 
 # Extract indices with "mean" and "std" in features.txt
 feature <- tbl_df(read.table("UCI HAR Dataset/features.txt"))
+
+# Extract variable names from features.txt
+filtered <- filter(feature,grepl('mean|std',feature$V2),)
+
+#remove parentheses. duplicates, hyphens
+goodnames <- filtered$V2 %>%
+    str_replace_all("\\(\\)", "") %>%
+    str_replace_all("BodyBody", "Body") %>%
+    str_replace_all("-", "") %>%
+    str_replace_all("mean", "Mean") %>%
+    str_replace_all("std", "Std")
+
+## 4. Appropriately labels the data set with descriptive variable names.
+
+# Extract relevant variables and rename the variables in the merged set
+renamedset <- select(mergedset,c(1,grep('Mean|Std',goodnames)+1)) %>%
+    rename_at(2:80,funs(c(goodnames)))
+
+## 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+
+
+    
+
