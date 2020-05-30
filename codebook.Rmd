@@ -21,7 +21,7 @@ The companion site for the dataset can be accessed from:
 <http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones>
 \  
 
-Although there are no major changes to the variable names, the Table 1 below will summarise the abbreviations used in the variable names in the final output file *"avgbyparticipant.txt"*. An indication of *NA* signifies no changes to the orginal abbreviations.
+Although there are no major changes to the variable names, the Table 1 below will summarise the abbreviations used in the variable names in the final output file *"avgbyparticipant.txt"*. An indication of *NA* signifies no changes to the orginal abbreviations or absence in the original dataset.
 
 
 ```{r table-simple, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -29,6 +29,8 @@ require(pander)
 panderOptions('table.split.table', Inf)
 set.caption("Summary of variable abbrevations")
 my.data <- " Original | Modified | Meaning
+  *NA*          | ID        | Participant/Subject ID from subject_test.txt or subject_train.txt
+  *NA*          | Activity  | Activity labels from activity_labels.txt
   f             | *NA*      | Frequency Domain           
   t             | *NA*      | Time Domain, 50Hz
   -XYZ          | XYZ       | Denotes 3-axial signals in X, Y, or Z directions
@@ -36,6 +38,8 @@ my.data <- " Original | Modified | Meaning
   Gyro          | *NA*      | Gyroscope readings
   Body          | *NA*      | Denotes Acc or Gyro readings by the Body
   Gravity       | *NA*      | Denotes Acc or Gyro readings due to Gravity
+  Jerk          | *NA*      | Denotes the derived Jerk signal 
+  Mag           | *NA*      | Denotes the magnitude
   mean()        | Mean      | Indicates a mean calculation
   std()         | Std       | Indicates a standard deviation calculation"
 df <- read.delim(textConnection(my.data),header=FALSE,sep="|",strip.white=TRUE,stringsAsFactors=FALSE)
