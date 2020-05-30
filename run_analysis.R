@@ -7,7 +7,9 @@
 ## This script assumes the UCI HAR Dataset is unzipped into the "UCI HAR Dataset" folder in the working directory
 
 # Check if dataset is available
-
+if(!dir.exists("UCI HAR Dataset")){
+    print("Dataset not in the right place!")
+}else{ 
 
 # load libraries
 library(dplyr)
@@ -60,6 +62,7 @@ renamedset <- select(mergedset,c(1,grep('Mean|Std',goodnames)+1)) %>%
 
 ## 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
+}
 
 
     
